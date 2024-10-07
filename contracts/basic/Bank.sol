@@ -53,11 +53,14 @@ contract Bank{
     function transfer(address _recipient, uint256 _amountInEth) public payable {
         bool isCustomer = doesAccountExist();
         require(isCustomer,"Fraud! You don't have an account,Open one!");
+        
         bool isRecipientCustomer = doesAccountExistWithParams(_recipient);
         require(isRecipientCustomer,"Recipient does not have an account!");
+
         require(customers[msg.sender].balance >= (_amountInEth * ETHTOWEI) ,"Insufficient balance");
         customers[msg.sender].balance -= (_amountInEth * ETHTOWEI);
         customers[_recipient].balance += (_amountInEth * ETHTOWEI);
+
         (bool success,) = _recipient.call{value : (_amountInEth * ETHTOWEI)}("");
             require(success);
     }
