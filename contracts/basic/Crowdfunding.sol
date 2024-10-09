@@ -2,10 +2,9 @@
 pragma solidity ^0.8.24;
 
 contract CrowdFunding {
-    address owner;
-    uint8 constant platformFeePercentage = 2;
-    uint8 constant miniPlatformFeePercentage = 1;
-    uint256 counter;
+    address public owner;
+
+    uint256 public counter;
 
     constructor() {
         owner = msg.sender;
